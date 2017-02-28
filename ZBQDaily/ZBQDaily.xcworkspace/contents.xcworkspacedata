@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:ZBHomeCellTwoType.h">
+   </FileRef>
+   <FileRef
+      location = "group:ZBHomeCellTwoType.m">
+   </FileRef>
+   <FileRef
+      location = "group:ZBQDaily.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>

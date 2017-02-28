@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "EB8434FB3C4C84E6CD9F0548625D8E0376078299",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "97745B156D6C357CECB6AD2982FBADC279C83EFF" : 0,
+    "EB8434FB3C4C84E6CD9F0548625D8E0376078299" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "94F92BD7-212C-4186-BB20-00DAA4586251",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "97745B156D6C357CECB6AD2982FBADC279C83EFF" : "",
+    "EB8434FB3C4C84E6CD9F0548625D8E0376078299" : "ZBQDaily\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ZBQDaily",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ZBQDaily.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:QYPerson\/ZBQdaily.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "97745B156D6C357CECB6AD2982FBADC279C83EFF"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:QYPerson\/ZBQdaily.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EB8434FB3C4C84E6CD9F0548625D8E0376078299"
+    }
+  ]
+}
