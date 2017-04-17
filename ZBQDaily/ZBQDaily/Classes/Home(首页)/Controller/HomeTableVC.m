@@ -36,7 +36,9 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
     HomeCellTypeTwo
 };
 
-@interface HomeTableVC ()
+@interface HomeTableVC () <UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic,weak) UITableView *HomeTableView;
 @property (nonatomic,strong) ZBResponseModel *response;
 @property (nonatomic,weak) SDCycleScrollView *cycleScrollView;
 @property (nonatomic,strong) UIImageView *launch;
@@ -46,34 +48,50 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //去掉tableView分割线
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self addTableView];
     //添加轮播图
     [self addCycleScrollView];
+    //添加启动图
+    [self addLaunchView];
     //添加上拉刷新 下拉加载
     [self addDropOrUpRefresh];
     //第一次加载数据
     [self firstLoadData];
-    //添加启动图
-    [self addLaunchView];
-    
 }
 
+- (void)addTableView{
+    UITableView *HomeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -20, ZBSCREEN_WIDTH, ZBSCREENH_HEIGHT + 20) style:UITableViewStylePlain];
+    HomeTableView.delegate = self;
+    HomeTableView.dataSource = self;
+    //去掉tableView分割线
+    [self.view addSubview:HomeTableView];
+    _HomeTableView = HomeTableView;
+    HomeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
+}
 
 #pragma mark - 添加启动图
 -(void)addLaunchView{
     UIImageView *launchView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     launchView.image = [UIImage imageNamed:@"launch"];
     _launch = launchView;
-    [self.navigationController.view addSubview:launchView];
+    [self.view addSubview:launchView];
 }
 
 #pragma mark - 轮播图相关方法
 -(void)addCycleScrollView{
     // 轮播器
-    _cycleScrollView = [SDCycleScrollView customCycleScrollViewWithFrame:CGRectMake(0, -20, ZBSCREEN_WIDTH, ZBSCREENH_HEIGHT * 0.4) imageURLStringsGroup:nil];
-    self.tableView.tableHeaderView = _cycleScrollView;
+    _cycleScrollView = [SDCycleScrollView customCycleScrollViewWithFrame:CGRectMake(0, 0, ZBSCREEN_WIDTH, ZBSCREENH_HEIGHT * 0.4) imageURLStringsGroup:nil];
+    __weak typeof(self) weakSelf = self;
+    _cycleScrollView.clickItemOperationBlock = ^(NSInteger currentIndex){
+        //创建阅读视图
+        ZBReaderViewController *readerVC = [[ZBReaderViewController alloc] init];
+        //填数据
+        readerVC.HtmlUrl = [_response.banners[currentIndex] post].appview;
+        [weakSelf.navigationController pushViewController:readerVC animated:YES];
+    };
+    _HomeTableView.tableHeaderView = _cycleScrollView;
 }
 //更新轮播图数据
 -(void)reloadCycleScrollData{
@@ -92,26 +110,23 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
 -(void)addDropOrUpRefresh{
     __weak typeof(self) weakSelf = self;
     //下拉刷新
-    self.tableView.mj_header = [ZBDropDownRefreshHeader headerWithRefreshingBlock:^{
-        [weakSelf.tableView.mj_header endRefreshing];
+    _HomeTableView.mj_header = [ZBDropDownRefreshHeader headerWithRefreshingBlock:^{
+        [weakSelf.HomeTableView.mj_header endRefreshing];
     }];
     //上拉刷新
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+    _HomeTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [ZBDataManagerTool HomeNewsDataWithLastKey:_response.last_key success:^(id response) {
             ZBResponseModel *responseModel = [ZBResponseModel mj_objectWithKeyValues:response];
             [_response.feeds addObjectsFromArray:responseModel.feeds];
             _response.last_key = responseModel.last_key;
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_footer endRefreshing];
+            [weakSelf.HomeTableView reloadData];
+            [weakSelf.HomeTableView.mj_footer endRefreshing];
         } failure:^(id response) {
             [MBProgressHUD showError:@"网络连接失败，请检查网络"];
-            [weakSelf.tableView.mj_footer endRefreshing];
+            [weakSelf.HomeTableView.mj_footer endRefreshing];
         }];
     }];
 }
-
-
-
 
 #pragma mark - 首次加载数据
 -(void)firstLoadData{
@@ -127,7 +142,7 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
             [_launch removeFromSuperview];
             //更新轮播图和主页数据
             [self reloadCycleScrollData];
-            [self.tableView reloadData];
+            [_HomeTableView reloadData];
         }];
      
      } failure:^(id response) {
@@ -204,8 +219,7 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
 //
 //    }
 //    return 0;
-    return [self cellHeightForIndexPath:indexPath cellContentViewWidth:ZBSCREEN_WIDTH];
-
+    return  [self.HomeTableView cellHeightForIndexPath:indexPath cellContentViewWidth:ZBSCREEN_WIDTH tableView:tableView];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -214,15 +228,11 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     // 立即取消选中
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [_HomeTableView deselectRowAtIndexPath:indexPath animated:YES];
     //创建阅读视图
     ZBReaderViewController *readerVC = [[ZBReaderViewController alloc] init];
     //填数据
     readerVC.HtmlUrl = [_response.feeds[indexPath.section] post].appview;
-    
-
-    
-    
     [self.navigationController pushViewController:readerVC animated:YES];
 }
 
@@ -235,12 +245,15 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
 
 //UITableView的Style为Plain时禁止headerInsectionView(组头视图)固定在顶端：
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat sectionHeaderHeight = 5;
+   static CGFloat sectionHeaderHeight = 5;
     if(scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y>=0) {
         scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0,0);
     } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
         scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
     }
+    
+//    scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+
 }
 
 //隐藏导航栏

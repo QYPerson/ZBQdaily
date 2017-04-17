@@ -68,8 +68,6 @@
     if (scrollView.contentOffset.y >= 230 && scrollView.contentOffset.y <= 260 ) {
         [self setNeedsStatusBarAppearanceUpdate];
     }
-    NSLog(@"%f",scrollView.contentOffset.y);
-
 }
 #pragma mark -- Other
 //隐藏导航栏
