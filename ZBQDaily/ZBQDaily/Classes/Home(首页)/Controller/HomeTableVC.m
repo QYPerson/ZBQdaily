@@ -29,7 +29,6 @@
 #import "ZBPostModel.h"
 //控制器
 #import "ZBReaderViewController.h"
-
 /**首页cell类型分类*/
 typedef NS_ENUM(NSInteger, HomeCellStyle) {
     HomeCellTypeZero,
@@ -49,7 +48,6 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
     [super viewDidLoad];
     //去掉tableView分割线
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    self.navigationController. = YES;
     //添加轮播图
     [self addCycleScrollView];
     //添加上拉刷新 下拉加载
@@ -68,14 +66,13 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
     UIImageView *launchView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     launchView.image = [UIImage imageNamed:@"launch"];
     _launch = launchView;
-    [self.view addSubview:launchView];
-    [self.view bringSubviewToFront:launchView];
+    [self.navigationController.view addSubview:launchView];
 }
 
 #pragma mark - 轮播图相关方法
 -(void)addCycleScrollView{
     // 轮播器
-    _cycleScrollView = [SDCycleScrollView customCycleScrollViewWithFrame:CGRectMake(0, 0, ZBSCREEN_WIDTH, ZBSCREENH_HEIGHT * 0.4) imageURLStringsGroup:nil];
+    _cycleScrollView = [SDCycleScrollView customCycleScrollViewWithFrame:CGRectMake(0, -20, ZBSCREEN_WIDTH, ZBSCREENH_HEIGHT * 0.4) imageURLStringsGroup:nil];
     self.tableView.tableHeaderView = _cycleScrollView;
 }
 //更新轮播图数据
@@ -222,7 +219,11 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
     ZBReaderViewController *readerVC = [[ZBReaderViewController alloc] init];
     //填数据
     readerVC.HtmlUrl = [_response.feeds[indexPath.section] post].appview;
-    [self.navigationController pushViewController:readerVC animated:YES];    
+    
+
+    
+    
+    [self.navigationController pushViewController:readerVC animated:YES];
 }
 
 

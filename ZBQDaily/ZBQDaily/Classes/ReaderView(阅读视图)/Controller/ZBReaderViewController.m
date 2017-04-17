@@ -12,7 +12,12 @@
 
 
 @interface ZBReaderViewController ()<UIScrollViewDelegate,WKNavigationDelegate>
-@property (nonatomic,strong) WKWebView *readerWebView;
+{
+    CGFloat _contentOffSet_Y; //WKWebView滑动后Y轴偏移量
+}
+@property (nonatomic,weak) WKWebView *readerWebView;
+//判断滑动方向
+@property (nonatomic,assign) BOOL iSDownDrag;
 
 @end
 
@@ -21,41 +26,51 @@
 #pragma mark -- 视图生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self addWebView];
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
--(void)loadView{
-    [super viewDidLoad];
-    [self addWebView];
-
-
-}
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:YES];
+    [super viewWillDisappear:animated];
     //当控制器pop时 把readerWebView的代理清空 防止项目崩溃
     _readerWebView.scrollView.delegate = nil;
 }
 
 -(void)setHtmlUrl:(NSString *)HtmlUrl{
     _HtmlUrl = HtmlUrl;
-    [_readerWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://app3.qdaily.com/app3/articles/39855.html"]]];
-    NSLog(@"%@",HtmlUrl);
-
+    [self addWebView];
 }
 
 #pragma mark -- WKWebView
 //添加WKWebView
 - (void)addWebView{
-    WKWebView *readerWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, -20, ZBSCREEN_WIDTH, ZBSCREENH_HEIGHT)];
-    _readerWebView = readerWebView;
+    WKWebView *readerWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, -20, ZBSCREEN_WIDTH, ZBSCREENH_HEIGHT + 20)];
     readerWebView.navigationDelegate = self;
     readerWebView.scrollView.delegate = self;
-    //利用KVC替换系统自带的View
+    [readerWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_HtmlUrl]]];
+    _readerWebView = readerWebView;
     [self.view addSubview:readerWebView];
-    [_readerWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://app3.qdaily.com/app3/articles/39855.html"]]];
 }
+#pragma mark -- UIScrollViewDelegate
+///// 停止滚动时调用
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+//    NSLog(@"%f", scrollView.contentOffset.y);
+//}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    //判断滑动方向 正为向下滑动 负为向上滑动
+    if (scrollView.contentOffset.y > _contentOffSet_Y) {
+        _iSDownDrag = YES;
+    } else{
+        _iSDownDrag = NO;
+    };
+    //保存偏移量
+    _contentOffSet_Y = scrollView.contentOffset.y;
+    //如果偏移到这个范围 改变状态栏颜色
+    if (scrollView.contentOffset.y >= 230 && scrollView.contentOffset.y <= 260 ) {
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
+    NSLog(@"%f",scrollView.contentOffset.y);
 
-
+}
 #pragma mark -- Other
 //隐藏导航栏
 - (BOOL)fd_prefersNavigationBarHidden {
@@ -63,6 +78,11 @@
 }
 //修改状态栏颜色
 -(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
+    //判断方向
+    if (_iSDownDrag) {
+        return UIStatusBarStyleDefault;
+    }else{
+        return  UIStatusBarStyleLightContent;
+    }
 }
 @end
