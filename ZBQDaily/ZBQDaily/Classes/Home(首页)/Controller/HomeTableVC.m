@@ -27,6 +27,9 @@
 #import "ZBBannersModel.h"
 #import "ZBColumnModel.h"
 #import "ZBPostModel.h"
+//控制器
+#import "ZBReaderViewController.h"
+
 /**首页cell类型分类*/
 typedef NS_ENUM(NSInteger, HomeCellStyle) {
     HomeCellTypeZero,
@@ -35,19 +38,9 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
 };
 
 @interface HomeTableVC ()
-
-
-
 @property (nonatomic,strong) ZBResponseModel *response;
-
-
 @property (nonatomic,weak) SDCycleScrollView *cycleScrollView;
-
-
 @property (nonatomic,strong) UIImageView *launch;
-
-
-
 @end
 
 @implementation HomeTableVC
@@ -56,6 +49,7 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
     [super viewDidLoad];
     //去掉tableView分割线
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.navigationController. = YES;
     //添加轮播图
     [self addCycleScrollView];
     //添加上拉刷新 下拉加载
@@ -64,6 +58,7 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
     [self firstLoadData];
     //添加启动图
     [self addLaunchView];
+    
 }
 
 
@@ -113,6 +108,7 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
             [weakSelf.tableView.mj_footer endRefreshing];
         } failure:^(id response) {
             [MBProgressHUD showError:@"网络连接失败，请检查网络"];
+            [weakSelf.tableView.mj_footer endRefreshing];
         }];
     }];
 }
@@ -122,12 +118,9 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
 
 #pragma mark - 首次加载数据
 -(void)firstLoadData{
-    //提示加载状态
-//    [MBProgressHUD showMessage:@"加载数据中..." toView:self.tableView];
+
     //第一次加载数据
     [ZBDataManagerTool HomeNewsDataWithLastKey:@"0" success:^(id response) {
-        //提示加载成功
-//        [MBProgressHUD hideHUDForView:self.tableView];
         //字典转模型
         _response = [ZBResponseModel mj_objectWithKeyValues:response];
         //启动图消失 加载数据
@@ -140,15 +133,14 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
             [self.tableView reloadData];
         }];
      
-    } failure:^(id response) {
+     } failure:^(id response) {
         [UIView animateWithDuration:1 delay:1 options:UIViewAnimationOptionLayoutSubviews animations:^{
             _launch.alpha = 0;
         } completion:^(BOOL finished) {
             [_launch removeFromSuperview];
         }];
-        [MBProgressHUD hideHUDForView:self.tableView];
         [MBProgressHUD showError:@"网络连接失败，请检查网络"];
-    }];
+     }];
 
 }
 
@@ -164,13 +156,20 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+//    if ((indexPath.section % 6 == 0) && (indexPath.section != 0)) {
+//        NSLog(@"%ld",indexPath.section);
+//        ZBHomeCellTypeThree *cell = [ZBHomeCellTypeThree cellWithTableView:tableView];
+//        cell.shareBtnClick = ^{
+//            NSLog(@"在控制器中被点击");
+//        };
+//        cell.feed =_response.feeds[indexPath.section];
+//        return cell;
+//    }
     ZBFeedsModel *feedModel  = _response.feeds[indexPath.section];
     //判断cell类型 选择对应的cell
     switch ([feedModel.type intValue]) {
         case HomeCellTypeZero:{
-            ZBHomeCellTypeThree *cell = [ZBHomeCellTypeThree cellWithTableView:tableView];
-//            ZBHomeCellTypeZero *cell = [ZBHomeCellTypeZero cellWithTableView:tableView];
+            ZBHomeCellTypeZero *cell = [ZBHomeCellTypeZero cellWithTableView:tableView];
             cell.shareBtnClick = ^{
                 NSLog(@"在控制器中被点击");
             };
@@ -219,14 +218,15 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     // 立即取消选中
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSLog(@"%ld",indexPath.section);
-
-
+    //创建阅读视图
+    ZBReaderViewController *readerVC = [[ZBReaderViewController alloc] init];
+    //填数据
+    readerVC.HtmlUrl = [_response.feeds[indexPath.section] post].appview;
+    [self.navigationController pushViewController:readerVC animated:YES];    
 }
 
 
 #pragma mark - Other
-
 //修改状态栏颜色
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
@@ -240,6 +240,11 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
     } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
         scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
     }
+}
+
+//隐藏导航栏
+- (BOOL)fd_prefersNavigationBarHidden {
+    return YES;
 }
 @end
 

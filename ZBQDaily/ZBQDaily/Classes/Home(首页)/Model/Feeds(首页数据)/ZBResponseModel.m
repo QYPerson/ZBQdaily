@@ -13,8 +13,9 @@
 
 +(NSDictionary *)mj_objectClassInArray{
     return @{
-            @"feeds" : @"ZBFeedsModel",
-            @"banners": @"ZBBannersModel"
+            @"feeds"  :  @"ZBFeedsModel",
+            @"banners":  @"ZBBannersModel",
+            @"columns":  @"ZBColumnModel"
             };
 }
 

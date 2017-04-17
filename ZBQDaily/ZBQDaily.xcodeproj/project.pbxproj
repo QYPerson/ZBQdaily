@@ -16,6 +16,7 @@
 		C810CBD91E4C46E8004C8D11 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C810CBD51E4C46E8004C8D11 /* MBProgressHUD.bundle */; };
 		C810CBDC1E4C470E004C8D11 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = C810CBDB1E4C470E004C8D11 /* Foundation+Log.m */; };
 		C810CBDF1E4C4D7E004C8D11 /* NSDate+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = C810CBDE1E4C4D7E004C8D11 /* NSDate+Extention.m */; };
+		C8130A991EA1F72A0027E679 /* ZBReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8130A981EA1F72A0027E679 /* ZBReaderViewController.m */; };
 		C8A59E1F1E50433800B2DA9A /* ZBCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A59E181E50433800B2DA9A /* ZBCategoryModel.m */; };
 		C8A59E201E50433800B2DA9A /* ZBFeedsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A59E1A1E50433800B2DA9A /* ZBFeedsModel.m */; };
 		C8A59E211E50433800B2DA9A /* ZBPostModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A59E1C1E50433800B2DA9A /* ZBPostModel.m */; };
@@ -71,6 +72,8 @@
 		C810CBDB1E4C470E004C8D11 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
 		C810CBDD1E4C4D7D004C8D11 /* NSDate+Extention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extention.h"; sourceTree = "<group>"; };
 		C810CBDE1E4C4D7E004C8D11 /* NSDate+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extention.m"; sourceTree = "<group>"; };
+		C8130A971EA1F72A0027E679 /* ZBReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBReaderViewController.h; sourceTree = "<group>"; };
+		C8130A981EA1F72A0027E679 /* ZBReaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBReaderViewController.m; sourceTree = "<group>"; };
 		C8A59E171E50433800B2DA9A /* ZBCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBCategoryModel.h; sourceTree = "<group>"; };
 		C8A59E181E50433800B2DA9A /* ZBCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBCategoryModel.m; sourceTree = "<group>"; };
 		C8A59E191E50433800B2DA9A /* ZBFeedsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBFeedsModel.h; sourceTree = "<group>"; };
@@ -151,6 +154,7 @@
 			children = (
 				C80D65B51E20B034008A8568 /* Main */,
 				C80D65BE1E20B143008A8568 /* Home(首页) */,
+				C8130A931EA1F6E00027E679 /* ReaderView(阅读视图) */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -262,6 +266,39 @@
 				C810CBD51E4C46E8004C8D11 /* MBProgressHUD.bundle */,
 			);
 			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		C8130A931EA1F6E00027E679 /* ReaderView(阅读视图) */ = {
+			isa = PBXGroup;
+			children = (
+				C8130A941EA1F6E00027E679 /* Controller */,
+				C8130A951EA1F6E00027E679 /* Model */,
+				C8130A961EA1F6E00027E679 /* View */,
+			);
+			path = "ReaderView(阅读视图)";
+			sourceTree = "<group>";
+		};
+		C8130A941EA1F6E00027E679 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C8130A971EA1F72A0027E679 /* ZBReaderViewController.h */,
+				C8130A981EA1F72A0027E679 /* ZBReaderViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C8130A951EA1F6E00027E679 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C8130A961EA1F6E00027E679 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		C8A59E151E50433800B2DA9A /* Banners(首页轮播数据) */ = {
@@ -551,6 +588,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C810CBD81E4C46E8004C8D11 /* MBProgressHUD+MJ.m in Sources */,
+				C8130A991EA1F72A0027E679 /* ZBReaderViewController.m in Sources */,
 				C810CBDC1E4C470E004C8D11 /* Foundation+Log.m in Sources */,
 				C80D65C41E20B392008A8568 /* HomeTableVC.m in Sources */,
 				C8FC641C1E5D541E003CD241 /* ZBHomeCellTypeZero.m in Sources */,

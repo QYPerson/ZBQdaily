@@ -1,4 +1,3 @@
-# ZBQdaily
-高仿好奇心日报iOS客户端
-###666
-2213
+## ZBQdaily仿好奇心日报iOS客户端
+
+#####1. 2017.2.28添加首页collevtionView

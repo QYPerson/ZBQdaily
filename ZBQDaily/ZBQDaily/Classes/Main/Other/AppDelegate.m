@@ -21,7 +21,9 @@
     // 2.显示窗口
     [self.window makeKeyAndVisible];
     // 3.设置根控制器
-    self.window.rootViewController = [[HomeTableVC alloc] init];
+    HomeTableVC *homeVC = [HomeTableVC new];
+    UINavigationController *navigationVC = [[UINavigationController alloc] initWithRootViewController:homeVC];
+    self.window.rootViewController = navigationVC;
     
     return YES;
 }

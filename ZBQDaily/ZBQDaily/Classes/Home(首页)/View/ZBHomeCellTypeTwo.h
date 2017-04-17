@@ -11,7 +11,6 @@
 @interface ZBHomeCellTypeTwo : UITableViewCell
 @property (nonatomic,strong) ZBFeedsModel *feed;
 
-
 /** 封装创建cell代码 */
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 @end

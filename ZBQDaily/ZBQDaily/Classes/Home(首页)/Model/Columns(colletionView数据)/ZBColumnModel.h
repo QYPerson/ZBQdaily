@@ -13,9 +13,7 @@
 @property (nonatomic,copy) NSString *icon;
 /** 分类名字*/
 @property (nonatomic,copy) NSString *name;
-/** 分类名字*/
-@property (nonatomic,copy) NSString *d;
-/** 分类名字*/
-@property (nonatomic,copy) NSString *f;
+/** 请求参数标记*/
+@property (nonatomic,copy) NSString *column_tag;
 
 @end

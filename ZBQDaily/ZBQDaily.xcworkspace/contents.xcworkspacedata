@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:ZBHomeCellTwoType.h">
-   </FileRef>
-   <FileRef
-      location = "group:ZBHomeCellTwoType.m">
-   </FileRef>
-   <FileRef
       location = "group:ZBQDaily.xcodeproj">
    </FileRef>
    <FileRef

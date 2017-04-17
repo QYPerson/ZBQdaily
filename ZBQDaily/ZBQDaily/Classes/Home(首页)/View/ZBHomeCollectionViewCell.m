@@ -238,7 +238,6 @@ static const CGFloat subTitelHeight = 13;
     
 //    [self setupAutoHeightWithBottomView:_news_type bottomMargin:10];
     
-    self.size = CGSizeMake(300, 100);
 }
 
 /**返回设定好的Label*/

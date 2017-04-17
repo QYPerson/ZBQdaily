@@ -10,4 +10,6 @@ pod 'SDWebImage', '~>3.8'
 pod 'MBProgressHUD', '~> 1.0.0'
 pod 'MJRefresh'
 pod 'SDCycleScrollView','~> 1.64'
+pod 'FDFullscreenPopGesture', '1.1'
+
 
