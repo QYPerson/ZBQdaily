@@ -29,6 +29,11 @@
 #import "ZBPostModel.h"
 //控制器
 #import "ZBReaderViewController.h"
+
+/**组头告*/
+#define ZBSectionHeaderHeight 5
+
+
 /**首页cell类型分类*/
 typedef NS_ENUM(NSInteger, HomeCellStyle) {
     HomeCellTypeZero,
@@ -58,10 +63,11 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
     [self addDropOrUpRefresh];
     //第一次加载数据
     [self firstLoadData];
+
 }
 
 - (void)addTableView{
-    UITableView *HomeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -20, ZBSCREEN_WIDTH, ZBSCREENH_HEIGHT + 20) style:UITableViewStylePlain];
+    UITableView *HomeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ZBSCREEN_WIDTH, ZBSCREENH_HEIGHT + 20) style:UITableViewStylePlain];
     HomeTableView.delegate = self;
     HomeTableView.dataSource = self;
     //去掉tableView分割线
@@ -88,7 +94,7 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
         //创建阅读视图
         ZBReaderViewController *readerVC = [[ZBReaderViewController alloc] init];
         //填数据
-        readerVC.HtmlUrl = [_response.banners[currentIndex] post].appview;
+        readerVC.post = [_response.banners[currentIndex] post];
         [weakSelf.navigationController pushViewController:readerVC animated:YES];
     };
     _HomeTableView.tableHeaderView = _cycleScrollView;
@@ -135,16 +141,16 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
     [ZBDataManagerTool HomeNewsDataWithLastKey:@"0" success:^(id response) {
         //字典转模型
         _response = [ZBResponseModel mj_objectWithKeyValues:response];
+        //更新轮播图和主页数据
+        [self reloadCycleScrollData];
+        [_HomeTableView reloadData];
         //启动图消失 加载数据
         [UIView animateWithDuration:0.5 delay:1 options:UIViewAnimationOptionLayoutSubviews animations:^{
             _launch.alpha = 0;
         } completion:^(BOOL finished) {
             [_launch removeFromSuperview];
-            //更新轮播图和主页数据
-            [self reloadCycleScrollData];
-            [_HomeTableView reloadData];
+            _launch = nil;
         }];
-     
      } failure:^(id response) {
         [UIView animateWithDuration:1 delay:1 options:UIViewAnimationOptionLayoutSubviews animations:^{
             _launch.alpha = 0;
@@ -223,7 +229,7 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 5;
+    return ZBSectionHeaderHeight;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -231,31 +237,28 @@ typedef NS_ENUM(NSInteger, HomeCellStyle) {
     [_HomeTableView deselectRowAtIndexPath:indexPath animated:YES];
     //创建阅读视图
     ZBReaderViewController *readerVC = [[ZBReaderViewController alloc] init];
-    //填数据
-    readerVC.HtmlUrl = [_response.feeds[indexPath.section] post].appview;
+    //传递模型数据
+    readerVC.post = [_response.feeds[indexPath.section] post];
     [self.navigationController pushViewController:readerVC animated:YES];
 }
 
 
+
+#pragma mark - UIScrollViewDelegate
+//UITableView的Style为Plain时禁止headerInsectionView(组头视图)固定在顶端：
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y <=0 ) {
+        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0,0);
+    }else{
+        scrollView.contentInset = UIEdgeInsetsMake(-ZBSectionHeaderHeight, 0, 0,0);
+    }
+//    scrollView.contentOffset.y <=0?(scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0,0)):(scrollView.contentInset = UIEdgeInsetsMake(-ZBSectionHeaderHeight, 0, 0,0));
+}
 #pragma mark - Other
 //修改状态栏颜色
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
-
-//UITableView的Style为Plain时禁止headerInsectionView(组头视图)固定在顶端：
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-   static CGFloat sectionHeaderHeight = 5;
-    if(scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y>=0) {
-        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0,0);
-    } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
-        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
-    }
-    
-//    scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
-
-}
-
 //隐藏导航栏
 - (BOOL)fd_prefersNavigationBarHidden {
     return YES;

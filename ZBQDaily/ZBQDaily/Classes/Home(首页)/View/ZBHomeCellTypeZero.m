@@ -57,9 +57,7 @@ static const CGFloat fontSize = 12;
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
         // 添加子控件
         [self addSubviews];
         
@@ -70,7 +68,6 @@ static const CGFloat fontSize = 12;
 
 #pragma mark -- 添加子控件
 -(void)addSubviews{
-    
     
     // 1.名字图标
     self.column_iconView = [[UIImageView alloc] init];

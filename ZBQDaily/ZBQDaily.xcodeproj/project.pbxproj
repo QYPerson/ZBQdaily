@@ -23,6 +23,7 @@
 		C8A59E221E50433800B2DA9A /* ZBResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A59E1E1E50433800B2DA9A /* ZBResponseModel.m */; };
 		C8A59E251E50434F00B2DA9A /* ZBBannersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A59E241E50434F00B2DA9A /* ZBBannersModel.m */; };
 		C8A59E2E1E51DC1400B2DA9A /* ZBDropDownRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A59E2D1E51DC1400B2DA9A /* ZBDropDownRefreshHeader.m */; };
+		C8B003D81EA5CB3E001775C2 /* ZBSuspensionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B003D71EA5CB3E001775C2 /* ZBSuspensionView.m */; };
 		C8C214D11E1A06CC00A272B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C214D01E1A06CC00A272B1 /* main.m */; };
 		C8C214DC1E1A06CC00A272B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8C214DB1E1A06CC00A272B1 /* Assets.xcassets */; };
 		C8C214DF1E1A06CC00A272B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8C214DD1E1A06CC00A272B1 /* LaunchScreen.storyboard */; };
@@ -86,6 +87,8 @@
 		C8A59E241E50434F00B2DA9A /* ZBBannersModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBBannersModel.m; sourceTree = "<group>"; };
 		C8A59E2C1E51DC1400B2DA9A /* ZBDropDownRefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDropDownRefreshHeader.h; sourceTree = "<group>"; };
 		C8A59E2D1E51DC1400B2DA9A /* ZBDropDownRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBDropDownRefreshHeader.m; sourceTree = "<group>"; };
+		C8B003D61EA5CB3E001775C2 /* ZBSuspensionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBSuspensionView.h; sourceTree = "<group>"; };
+		C8B003D71EA5CB3E001775C2 /* ZBSuspensionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSuspensionView.m; sourceTree = "<group>"; };
 		C8C214CC1E1A06CC00A272B1 /* ZBQDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZBQDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8C214D01E1A06CC00A272B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C8C214DB1E1A06CC00A272B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 		C8130A961EA1F6E00027E679 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C8B003D61EA5CB3E001775C2 /* ZBSuspensionView.h */,
+				C8B003D71EA5CB3E001775C2 /* ZBSuspensionView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -596,6 +601,7 @@
 				C8A59E1F1E50433800B2DA9A /* ZBCategoryModel.m in Sources */,
 				C8A59E201E50433800B2DA9A /* ZBFeedsModel.m in Sources */,
 				C80D65BD1E20B034008A8568 /* AppDelegate.m in Sources */,
+				C8B003D81EA5CB3E001775C2 /* ZBSuspensionView.m in Sources */,
 				C8FC64291E650484003CD241 /* ZBShareModel.m in Sources */,
 				C8C214D11E1A06CC00A272B1 /* main.m in Sources */,
 				C8D13D4F1E2F5DF600F776C1 /* ZBHttpTool.m in Sources */,

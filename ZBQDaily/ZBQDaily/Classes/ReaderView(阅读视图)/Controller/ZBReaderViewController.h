@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZBPostModel.h"
 
 @interface ZBReaderViewController : UIViewController
-@property (nonatomic,copy) NSString *HtmlUrl;
+//数据模型
+@property (nonatomic, strong) ZBPostModel *post;
 @end

@@ -7,8 +7,12 @@
 //
 
 #import "ZBReaderViewController.h"
+//系统库
 #import <WebKit/WebKit.h>
+//第三方
 #import "MBProgressHUD+MJ.h"
+//视图
+#import "ZBSuspensionView.h"
 
 
 @interface ZBReaderViewController ()<UIScrollViewDelegate,WKNavigationDelegate>
@@ -19,6 +23,8 @@
 /** 加载动画view*/
 @property (nonatomic, strong) UIView *loadingView;
 @property (nonatomic, strong) UIImageView *loadingImageView;
+/** 悬浮视图view*/
+@property (nonatomic,weak) ZBSuspensionView *suspensionView;
 
 @property (nonatomic,weak) WKWebView *readerWebView;
 //判断滑动方向
@@ -32,7 +38,7 @@
 - (UIView *)loadingView{
     if (!_loadingView) {
         _loadingView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        _loadingView.backgroundColor = [UIColor clearColor];
+        _loadingView.backgroundColor = [UIColor whiteColor];
     }
     return _loadingView;
 }
@@ -59,6 +65,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+ 
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -67,9 +75,11 @@
     _readerWebView.scrollView.delegate = nil;
 }
 
--(void)setHtmlUrl:(NSString *)HtmlUrl{
-    _HtmlUrl = HtmlUrl;
+
+-(void)setPost:(ZBPostModel *)post{
+    _post = post;
     [self addWebView];
+
 }
 
 #pragma mark -- WKNavigationDelegate
@@ -78,11 +88,16 @@
     WKWebView *readerWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, -20, ZBSCREEN_WIDTH, ZBSCREENH_HEIGHT + 20)];
     readerWebView.navigationDelegate = self;
     readerWebView.scrollView.delegate = self;
-    [readerWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_HtmlUrl]]];
+    [readerWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_post.appview]]];
     _readerWebView = readerWebView;
     [self.view addSubview:readerWebView];
     [self.view addSubview:self.loadingView];
     [self.loadingView addSubview:self.loadingImageView];
+    
+    //添加悬浮视图
+    [self addSuspensionView];
+    
+  
 }
 /// WXWebView开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
@@ -101,7 +116,7 @@
                      }];
 }
 /// WXWebView加载失败时调用
-//- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+//- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError /Users/wqf/Desktop/ZBQdaily/ZBQDaily/ZBQDaily/Classes/Home(首页)/Model/Banners(首页轮播数据)/ZBBannersModel.m*)error {
 //    [self.loadingImageView stopAnimating];
 //    NSLog(@"2222");
 //    [MBProgressHUD showError:@"网络连接失败，请检查网络"];
@@ -111,6 +126,7 @@
 /// WXWebView加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
     NSLog(@"1111");
+    [self.loadingView setAlpha:0];
     [self.loadingImageView stopAnimating];
     [MBProgressHUD showError:@"网络连接失败，请检查网络"];
     [NSThread sleepForTimeInterval:3];
@@ -132,6 +148,18 @@
         [self setNeedsStatusBarAppearanceUpdate];
     }
 }
+#pragma mark -- 悬浮试图相关方法
+//添加悬浮视图
+- (void)addSuspensionView{
+
+    ZBSuspensionView *suspensionView = [[ZBSuspensionView alloc] init];
+    suspensionView.frame = CGRectMake(0, ZBSCREENH_HEIGHT - 40, ZBSCREEN_WIDTH, 40);
+    [self.view addSubview:suspensionView];
+    
+
+}
+
+
 
 #pragma mark -- Other
 //隐藏导航栏
