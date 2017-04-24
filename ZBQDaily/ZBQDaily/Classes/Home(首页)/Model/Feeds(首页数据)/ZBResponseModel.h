@@ -16,6 +16,6 @@
 @property (nonatomic, strong) NSMutableArray *feeds;
 @property (nonatomic, strong) NSMutableArray *columns;
 @property (nonatomic, strong) NSArray *banners;
-
+@property (nonatomic,strong) NSArray *comments;
 
 @end

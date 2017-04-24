@@ -28,59 +28,17 @@
 
 @implementation ZBSuspensionView
 
-
+#pragma mark -- 初始化
 -(instancetype)init{
     if (self == [super init]) {
         //添加子控件
         [self addSubViews];
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
 
 
-/**子控件布局*/
--(void)layoutSubviews{
-    [super layoutSubviews];
-    
-    _backBtn.sd_layout
-    .topSpaceToView(self,10)
-    .leftSpaceToView(self,10)
-    .widthIs(25)
-    .heightIs(25);
-
-    _shareBtn.sd_layout
-    .topSpaceToView(self,11.5)
-    .rightSpaceToView(self,20)
-    .widthIs(22)
-    .heightIs(22);
-
-    _commentBtn.sd_layout
-    .topSpaceToView(self,10)
-    .rightSpaceToView(_shareBtn,20)
-    .widthIs(25)
-    .heightIs(25);
-    
-    _praiseBtn.sd_layout
-    .topSpaceToView(self,10)
-    .rightSpaceToView(_commentBtn,20)
-    .widthIs(25)
-    .heightIs(25);
-    
-    _commentText.sd_layout
-    .topSpaceToView(self,10)
-    .leftSpaceToView(_backBtn,10)
-    .rightSpaceToView(_praiseBtn,10)
-    .heightIs(25);
-    
-//    _praiseBtn.backgroundColor = [UIColor orangeColor];
-//    _commentBtn.backgroundColor = [UIColor grayColor];
-//    _shareBtn.backgroundColor = [UIColor yellowColor];
-//    _backBtn.backgroundColor = [UIColor greenColor];
-
-    
-    self.backgroundColor = [UIColor whiteColor];
-}
 
 /**添加子控件*/
 - (void)addSubViews{
@@ -88,21 +46,37 @@
     UIButton *backBtn = [[UIButton alloc]init];
     [backBtn setImage:[UIImage imageNamed:@"Suspention_Back"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtnDidClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     //评论输入框
     UITextField *commentText = [[UITextField alloc] init];
     [commentText addTarget:self action:@selector(commentTextDidClick:) forControlEvents:UIControlEventTouchUpInside];
-    commentText.backgroundColor = [UIColor grayColor];
+    commentText.backgroundColor = [UIColor whiteColor];
+    commentText.borderStyle = UITextBorderStyleRoundedRect;
+    commentText.placeholder = @"我有话要说...";
+    commentText.font = [UIFont systemFontOfSize:12];
+    commentText.layer.cornerRadius = 3;
+    commentText.clipsToBounds = YES;
+    
+    
     //点赞按钮 和label
     UIButton *praiseBtn = [[UIButton alloc]init];
     [praiseBtn setImage:[UIImage imageNamed:@"Suspention_Praise"] forState:UIControlStateNormal];
-    UILabel *praiseLabel = [[UILabel alloc] init];
     [praiseBtn addTarget:self action:@selector(praiseBtnDidClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *praiseLabel = [[UILabel alloc] init];
+    praiseLabel.font = [UIFont systemFontOfSize:10];
+    praiseLabel.textColor = [UIColor orangeColor];
     
     //评论按钮 和label
     UIButton *commentBtn = [[UIButton alloc]init];
     [commentBtn setImage:[UIImage imageNamed:@"Suspention_Comment"] forState:UIControlStateNormal];
-    UILabel *commentLabel = [[UILabel alloc] init];
     [commentBtn addTarget:self action:@selector(commentBtnDidClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *commentLabel = [[UILabel alloc] init];
+    commentLabel.font = [UIFont systemFontOfSize:10];
+    commentLabel.textColor = [UIColor orangeColor];
+
+ 
     
     //分享按钮
     UIButton *shareBtn = [[UIButton alloc]init];
@@ -126,18 +100,90 @@
     _commentLabel = commentLabel;
     _commentText = commentText;
     
+//    _commentBtn.backgroundColor = ZBRandomColor
+//    _praiseBtn.backgroundColor = ZBRandomColor
+//    _shareBtn.backgroundColor = ZBRandomColor
+//    _praiseLabel.backgroundColor = ZBRandomColor;
+//    _commentLabel.backgroundColor = ZBRandomColor;
 
 }
 
 
+/**子控件布局*/
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    
+    _backBtn.sd_layout
+    .topSpaceToView(self,10)
+    .leftSpaceToView(self,10)
+    .widthIs(25)
+    .heightIs(25);
+    
+    _shareBtn.sd_layout
+    .topSpaceToView(self,11.5)
+    .rightSpaceToView(self,20)
+    .widthIs(22)
+    .heightIs(22);
+    
+    _commentBtn.sd_layout
+    .topSpaceToView(self,10)
+    .rightSpaceToView(_shareBtn,20)
+    .widthIs(25)
+    .heightIs(25);
+    
+    _praiseBtn.sd_layout
+    .topSpaceToView(self,10)
+    .rightSpaceToView(_commentBtn,20)
+    .widthIs(25)
+    .heightIs(25);
+    
+    _commentText.sd_layout
+    .topSpaceToView(self,10)
+    .leftSpaceToView(_backBtn,10)
+    .rightSpaceToView(_praiseBtn,10)
+    .heightIs(25);
+    
+    _commentLabel.sd_layout
+    .topSpaceToView(self,10)
+    .leftSpaceToView(_commentBtn,0)
+    .heightIs(15);
+    [_commentLabel setSingleLineAutoResizeWithMaxWidth:30];
+    
+    _praiseLabel.sd_layout
+    .topSpaceToView(self,10)
+    .leftSpaceToView(_praiseBtn,0)
+    .heightIs(15);
+    [_praiseLabel setSingleLineAutoResizeWithMaxWidth:30];
+    
+    
+}
+
+#pragma mark --set方法
+- (void)setPraise_count:(NSString *)praise_count{
+    _praise_count = praise_count;
+    _praiseLabel.text  = praise_count;
+}
+
+-(void)setComment_count:(NSString *)comment_count{
+    _comment_count = comment_count;
+    _commentLabel.text = comment_count;
+    
+
+}
+
+#pragma mark --事件相关方法
 -(void)backBtnDidClick:(UIButton *)btn{
-    NSLog(@"%@",btn);
+    if (self.popupReaderViewControllerBlock) {
+        self.popupReaderViewControllerBlock();
+    }
 }
 -(void)praiseBtnDidClick:(UIButton *)btn{
     NSLog(@"%@",btn);
 }
 -(void)commentBtnDidClick:(UIButton *)btn{
-    NSLog(@"%@",btn);
+    if (self.pushCommentViewControllerBlock) {
+        self.pushCommentViewControllerBlock();
+    }
 }
 -(void)shareBtnDidClick:(UIButton *)btn{
     NSLog(@"%@",btn);
@@ -145,6 +191,7 @@
 -(void)commentTextDidClick:(UITextField *)textfield{
     NSLog(@"%@",textfield);
 }
+
 
 
 @end

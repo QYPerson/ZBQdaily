@@ -24,6 +24,11 @@
 @property (nonatomic, assign) NSInteger praise_count;
 /** 新闻文章链接（html格式）*/
 @property (nonatomic, copy) NSString *appview;
+/** 评论请求URl中的索引*/
+@property (nonatomic, assign) NSInteger comment_index;
+
+
+
 @property (nonatomic,strong) ZBCategoryModel *category;
 @property (nonatomic,strong) ZBColumnModel *column;
 

@@ -11,9 +11,10 @@
 #import <WebKit/WebKit.h>
 //第三方
 #import "MBProgressHUD+MJ.h"
+#import "UINavigationController+FDFullscreenPopGesture.h"
 //视图
 #import "ZBSuspensionView.h"
-
+#import "ZBCommentViewController.h"
 
 @interface ZBReaderViewController ()<UIScrollViewDelegate,WKNavigationDelegate>
 {
@@ -65,7 +66,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
- 
+    //监听键盘的弹出和收回
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(KeyboardDidShow) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(KeyboardDidHide) name:UIKeyboardDidHideNotification object:nil];
     
 }
 
@@ -75,7 +78,12 @@
     _readerWebView.scrollView.delegate = nil;
 }
 
+-(void)dealloc{
+    //移除监听
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
+}
+#pragma  mark -- set相关方法
 -(void)setPost:(ZBPostModel *)post{
     _post = post;
     [self addWebView];
@@ -93,7 +101,6 @@
     [self.view addSubview:readerWebView];
     [self.view addSubview:self.loadingView];
     [self.loadingView addSubview:self.loadingImageView];
-    
     //添加悬浮视图
     [self addSuspensionView];
     
@@ -111,21 +118,12 @@
                          [self.loadingView setAlpha:0];
                      } completion:^(BOOL finished) {
                          [self.loadingImageView stopAnimating];
-                         [self.loadingView removeFromSuperview];
-                         self.loadingView = nil;
+                         [self.loadingImageView removeFromSuperview];
+                         self.loadingImageView = nil;
                      }];
 }
 /// WXWebView加载失败时调用
-//- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError /Users/wqf/Desktop/ZBQdaily/ZBQDaily/ZBQDaily/Classes/Home(首页)/Model/Banners(首页轮播数据)/ZBBannersModel.m*)error {
-//    [self.loadingImageView stopAnimating];
-//    NSLog(@"2222");
-//    [MBProgressHUD showError:@"网络连接失败，请检查网络"];
-//    [NSThread sleepForTimeInterval:1.3];
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
-/// WXWebView加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
-    NSLog(@"1111");
     [self.loadingView setAlpha:0];
     [self.loadingImageView stopAnimating];
     [MBProgressHUD showError:@"网络连接失败，请检查网络"];
@@ -144,22 +142,69 @@
     //保存偏移量
     _contentOffSet_Y = scrollView.contentOffset.y;
     //如果偏移到这个范围 改变状态栏颜色
-    if (scrollView.contentOffset.y >= 230 && scrollView.contentOffset.y <= 260 ) {
+    if (scrollView.contentOffset.y >= 200 && scrollView.contentOffset.y <= 300 ) {
         [self setNeedsStatusBarAppearanceUpdate];
     }
+    //悬浮视图隐藏或者显示
+    [self SuspensionViewShowOrHide];
+   
+    
 }
 #pragma mark -- 悬浮试图相关方法
 //添加悬浮视图
 - (void)addSuspensionView{
-
     ZBSuspensionView *suspensionView = [[ZBSuspensionView alloc] init];
     suspensionView.frame = CGRectMake(0, ZBSCREENH_HEIGHT - 40, ZBSCREEN_WIDTH, 40);
-    [self.view addSubview:suspensionView];
+    //赋值
+    suspensionView.praise_count = [NSString stringWithFormat:@"%ld",(long)_post.praise_count];
+    suspensionView.comment_count = [NSString stringWithFormat:@"%ld",(long)_post.comment_count];
+
+   __weak typeof(self) weakSelf = self;
+    //Block相关方法
+    //退出阅读视图
+    suspensionView.popupReaderViewControllerBlock = ^{
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    };
     
+    //进入评论列表
+    suspensionView.pushCommentViewControllerBlock = ^{
+        ZBCommentViewController *commentVC = [[ZBCommentViewController alloc] init];
+        commentVC.commet_index = _post.comment_index;
+        commentVC.title = [NSString stringWithFormat:@"%ld 条评论", _post.comment_count];
+        [weakSelf.navigationController pushViewController:commentVC animated:YES];
+    };
+    
+    
+    
+    [self.view addSubview:suspensionView];
+    _suspensionView = suspensionView;
+
+}
+- (void)SuspensionViewShowOrHide{
+    //判断方向
+    if (_iSDownDrag && _suspensionView.alpha == 1 ) {//向下滑动 消失
+        [UIView animateWithDuration:0.5 animations:^{
+            _suspensionView.alpha = 0;
+        }];
+    }else if(!_iSDownDrag && _suspensionView.alpha == 0){//向上滑动 出现
+        [UIView animateWithDuration:0.5 animations:^{
+            _suspensionView.alpha = 1;
+        }];
+    }
 
 }
 
 
+#pragma mark -- 键盘处理问题
+- (void)KeyboardDidShow{
+    //弹出键盘 禁止全屏返回
+    self.fd_interactivePopDisabled = YES;
+}
+
+- (void)KeyboardDidHide{
+    //收回键盘 可以全屏返回
+    self.fd_interactivePopDisabled = NO;
+}
 
 #pragma mark -- Other
 //隐藏导航栏
@@ -175,4 +220,7 @@
         return  UIStatusBarStyleLightContent;
     }
 }
+
+//}
+
 @end

@@ -8,6 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+
+typedef void(^ZBSuspensionViewBlock)();
+
 @interface ZBSuspensionView : UIView
+
+/**评论数*/
+@property (nonatomic,copy) NSString *comment_count;
+/**点赞数*/
+@property (nonatomic,copy) NSString *praise_count;
+
+
+/** 弹出新闻阅读界面block*/
+@property (nonatomic,copy) ZBSuspensionViewBlock popupReaderViewControllerBlock;
+/** 进入评论界面block*/
+@property (nonatomic,copy) ZBSuspensionViewBlock pushCommentViewControllerBlock;
+
 
 @end

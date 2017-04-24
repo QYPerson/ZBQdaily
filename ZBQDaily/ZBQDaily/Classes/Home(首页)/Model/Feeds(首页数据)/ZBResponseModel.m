@@ -15,7 +15,8 @@
     return @{
             @"feeds"  :  @"ZBFeedsModel",
             @"banners":  @"ZBBannersModel",
-            @"columns":  @"ZBColumnModel"
+            @"columns":  @"ZBColumnModel",
+            @"comments":@"ZBCommentModel"
             };
 }
 

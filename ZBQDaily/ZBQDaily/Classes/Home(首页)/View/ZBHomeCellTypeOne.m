@@ -139,7 +139,7 @@ static const CGFloat subTitelHeight = 13;
     _comment_count.text = [NSString stringWithFormat:@"%ld",(long)feed.post.comment_count];
     _praise_count.text  = [NSString stringWithFormat:@"%ld",(long)feed.post.praise_count];
     _publish_time.text  = [NSDate  nowFromDateExchange:(int)feed.post.publish_time];
-    
+
     [_image sd_setImageWithURL:[NSURL URLWithString:feed.post.image]];
     
     // 设置子控件布局
@@ -166,19 +166,15 @@ static const CGFloat subTitelHeight = 13;
     
     //如果评论数为零 把评论配图和评论label宽度设置为0
     if ([_comment_count.text isEqualToString:@"0"]) {
-        //点赞配图
+        // 评论配图
         _comment_imageView.sd_layout
         .leftSpaceToView(_news_type, 0)
         .bottomSpaceToView(self.contentView,subTitelbottomMargin + 2)
         .widthIs(0)
         .heightIs(subTitelHeight - 3);
-         // 评论数量
-        _comment_count.sd_layout
-        .leftSpaceToView(_comment_imageView, 0)
-        .bottomEqualToView(_news_type)
-        .heightIs(subTitelHeight)
-        .widthIs(0);
-        
+
+        _comment_count.text = nil;
+
     }else{//如果不为零 则正常显示
         
         _comment_imageView.sd_layout
@@ -186,14 +182,17 @@ static const CGFloat subTitelHeight = 13;
         .bottomSpaceToView(self.contentView,subTitelbottomMargin + 2)
         .widthIs(subTitelHeight)
         .heightIs(subTitelHeight - 3);
-        
-        _comment_count.sd_layout
-        .leftSpaceToView(_comment_imageView, subTitelLeftMargin + 1)
-        .bottomEqualToView(_news_type)
-        .heightIs(subTitelHeight);
-        
-        [_comment_count setSingleLineAutoResizeWithMaxWidth:180];
+
     }
+    
+    
+    // 评论数量
+    _comment_count.sd_layout
+    .leftSpaceToView(_comment_imageView,subTitelLeftMargin +1 )
+    .bottomEqualToView(_news_type)
+    .heightIs(subTitelHeight);
+    [_comment_count setSingleLineAutoResizeWithMaxWidth:MAXFLOAT];
+
     
     //如果点赞数为零 把点赞imageView和点赞label宽度设置为0
     if ([_praise_count.text isEqualToString:@"0"]) {
@@ -204,30 +203,23 @@ static const CGFloat subTitelHeight = 13;
         .widthIs(0)
         .heightIs(subTitelHeight - 2);
         
-        _praise_count.sd_layout
-        .leftSpaceToView(_praise_imageView, 0)
-        .bottomEqualToView(_news_type)
-        .heightIs(subTitelHeight)
-        .widthIs(0);
+        _praise_count.text = nil;
         
     }else{//如果不为零 则正常显示
-        
         // 点赞配图
         _praise_imageView.sd_layout
         .leftSpaceToView(_comment_count,subTitelLeftMargin)
         .bottomSpaceToView(self.contentView,subTitelbottomMargin + 1)
         .widthIs(subTitelHeight)
         .heightIs(subTitelHeight - 2);
-        
-        // 点赞数
-        _praise_count.sd_layout
-        .leftSpaceToView(_praise_imageView, subTitelLeftMargin)
-        .bottomEqualToView(_news_type)
-        .heightIs(subTitelHeight);
-        [_praise_count setSingleLineAutoResizeWithMaxWidth:180];
     }
     
- 
+    // 点赞数
+    _praise_count.sd_layout
+    .leftSpaceToView(_praise_imageView, subTitelLeftMargin)
+    .bottomEqualToView(_news_type)
+    .heightIs(subTitelHeight);
+    [_praise_count setSingleLineAutoResizeWithMaxWidth:MAXFLOAT];
     
     //时间
     _publish_time.sd_layout

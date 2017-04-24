@@ -30,6 +30,11 @@
 		C8C214EA1E1A06CC00A272B1 /* ZBQDailyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C214E91E1A06CC00A272B1 /* ZBQDailyTests.m */; };
 		C8C214F51E1A06CC00A272B1 /* ZBQDailyUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C214F41E1A06CC00A272B1 /* ZBQDailyUITests.m */; };
 		C8D13D4F1E2F5DF600F776C1 /* ZBHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D13D4E1E2F5DF600F776C1 /* ZBHttpTool.m */; };
+		C8DAF4831EAC3C3400EAFEE6 /* ZBCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DAF4821EAC3C3400EAFEE6 /* ZBCommentViewController.m */; };
+		C8DAF4861EAC424800EAFEE6 /* ZBCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DAF4851EAC424800EAFEE6 /* ZBCommentModel.m */; };
+		C8DAF4891EAC44E900EAFEE6 /* ZBCommentAuthor.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DAF4881EAC44E900EAFEE6 /* ZBCommentAuthor.m */; };
+		C8DAF48D1EACD3E900EAFEE6 /* ZBFatherCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DAF48B1EACD3E900EAFEE6 /* ZBFatherCommentCell.m */; };
+		C8DAF4911EADCC3500EAFEE6 /* UIViewController+CustomBackButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DAF4901EADCC3500EAFEE6 /* UIViewController+CustomBackButtonItem.m */; };
 		C8FC64191E5D42AC003CD241 /* ZBHomeCellTypeTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FC64181E5D42AC003CD241 /* ZBHomeCellTypeTwo.m */; };
 		C8FC641C1E5D541E003CD241 /* ZBHomeCellTypeZero.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FC641B1E5D541E003CD241 /* ZBHomeCellTypeZero.m */; };
 		C8FC641F1E63EF14003CD241 /* ZBHomeCellTypeThree.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FC641E1E63EF14003CD241 /* ZBHomeCellTypeThree.m */; };
@@ -103,6 +108,16 @@
 		C8D13D4C1E2CCBDC00F776C1 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		C8D13D4D1E2F5DF600F776C1 /* ZBHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBHttpTool.h; sourceTree = "<group>"; };
 		C8D13D4E1E2F5DF600F776C1 /* ZBHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBHttpTool.m; sourceTree = "<group>"; };
+		C8DAF4811EAC3C3400EAFEE6 /* ZBCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBCommentViewController.h; sourceTree = "<group>"; };
+		C8DAF4821EAC3C3400EAFEE6 /* ZBCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBCommentViewController.m; sourceTree = "<group>"; };
+		C8DAF4841EAC424800EAFEE6 /* ZBCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBCommentModel.h; sourceTree = "<group>"; };
+		C8DAF4851EAC424800EAFEE6 /* ZBCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBCommentModel.m; sourceTree = "<group>"; };
+		C8DAF4871EAC44E900EAFEE6 /* ZBCommentAuthor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBCommentAuthor.h; sourceTree = "<group>"; };
+		C8DAF4881EAC44E900EAFEE6 /* ZBCommentAuthor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBCommentAuthor.m; sourceTree = "<group>"; };
+		C8DAF48A1EACD3E900EAFEE6 /* ZBFatherCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBFatherCommentCell.h; sourceTree = "<group>"; };
+		C8DAF48B1EACD3E900EAFEE6 /* ZBFatherCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBFatherCommentCell.m; sourceTree = "<group>"; };
+		C8DAF48F1EADCC3500EAFEE6 /* UIViewController+CustomBackButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+CustomBackButtonItem.h"; path = "../../CommentView(评论界面)/Controller/UIViewController+CustomBackButtonItem.h"; sourceTree = "<group>"; };
+		C8DAF4901EADCC3500EAFEE6 /* UIViewController+CustomBackButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+CustomBackButtonItem.m"; path = "../../CommentView(评论界面)/Controller/UIViewController+CustomBackButtonItem.m"; sourceTree = "<group>"; };
 		C8FC64171E5D42AC003CD241 /* ZBHomeCellTypeTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBHomeCellTypeTwo.h; sourceTree = "<group>"; };
 		C8FC64181E5D42AC003CD241 /* ZBHomeCellTypeTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBHomeCellTypeTwo.m; sourceTree = "<group>"; };
 		C8FC641A1E5D541E003CD241 /* ZBHomeCellTypeZero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBHomeCellTypeZero.h; sourceTree = "<group>"; };
@@ -158,6 +173,7 @@
 				C80D65B51E20B034008A8568 /* Main */,
 				C80D65BE1E20B143008A8568 /* Home(首页) */,
 				C8130A931EA1F6E00027E679 /* ReaderView(阅读视图) */,
+				C8DAF47D1EAC3BC900EAFEE6 /* CommentView(评论界面) */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -179,6 +195,8 @@
 				C810CBDB1E4C470E004C8D11 /* Foundation+Log.m */,
 				C810CBDD1E4C4D7D004C8D11 /* NSDate+Extention.h */,
 				C810CBDE1E4C4D7E004C8D11 /* NSDate+Extention.m */,
+				C8DAF48F1EADCC3500EAFEE6 /* UIViewController+CustomBackButtonItem.h */,
+				C8DAF4901EADCC3500EAFEE6 /* UIViewController+CustomBackButtonItem.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -391,6 +409,45 @@
 			path = ZBQDailyUITests;
 			sourceTree = "<group>";
 		};
+		C8DAF47D1EAC3BC900EAFEE6 /* CommentView(评论界面) */ = {
+			isa = PBXGroup;
+			children = (
+				C8DAF47E1EAC3BC900EAFEE6 /* Controller */,
+				C8DAF47F1EAC3BC900EAFEE6 /* Model */,
+				C8DAF4801EAC3BC900EAFEE6 /* View */,
+			);
+			path = "CommentView(评论界面)";
+			sourceTree = "<group>";
+		};
+		C8DAF47E1EAC3BC900EAFEE6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C8DAF4811EAC3C3400EAFEE6 /* ZBCommentViewController.h */,
+				C8DAF4821EAC3C3400EAFEE6 /* ZBCommentViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C8DAF47F1EAC3BC900EAFEE6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C8DAF4841EAC424800EAFEE6 /* ZBCommentModel.h */,
+				C8DAF4851EAC424800EAFEE6 /* ZBCommentModel.m */,
+				C8DAF4871EAC44E900EAFEE6 /* ZBCommentAuthor.h */,
+				C8DAF4881EAC44E900EAFEE6 /* ZBCommentAuthor.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C8DAF4801EAC3BC900EAFEE6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8DAF48A1EACD3E900EAFEE6 /* ZBFatherCommentCell.h */,
+				C8DAF48B1EACD3E900EAFEE6 /* ZBFatherCommentCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		C8FC64231E650479003CD241 /* Columns(colletionView数据) */ = {
 			isa = PBXGroup;
 			children = (
@@ -592,12 +649,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8DAF4861EAC424800EAFEE6 /* ZBCommentModel.m in Sources */,
 				C810CBD81E4C46E8004C8D11 /* MBProgressHUD+MJ.m in Sources */,
+				C8DAF4891EAC44E900EAFEE6 /* ZBCommentAuthor.m in Sources */,
 				C8130A991EA1F72A0027E679 /* ZBReaderViewController.m in Sources */,
+				C8DAF4831EAC3C3400EAFEE6 /* ZBCommentViewController.m in Sources */,
 				C810CBDC1E4C470E004C8D11 /* Foundation+Log.m in Sources */,
 				C80D65C41E20B392008A8568 /* HomeTableVC.m in Sources */,
 				C8FC641C1E5D541E003CD241 /* ZBHomeCellTypeZero.m in Sources */,
 				C8FC64221E647D1B003CD241 /* ZBHomeCollectionViewCell.m in Sources */,
+				C8DAF4911EADCC3500EAFEE6 /* UIViewController+CustomBackButtonItem.m in Sources */,
 				C8A59E1F1E50433800B2DA9A /* ZBCategoryModel.m in Sources */,
 				C8A59E201E50433800B2DA9A /* ZBFeedsModel.m in Sources */,
 				C80D65BD1E20B034008A8568 /* AppDelegate.m in Sources */,
@@ -609,6 +670,7 @@
 				C80D65CC1E21079A008A8568 /* ZBHomeCellTypeOne.m in Sources */,
 				C8A59E251E50434F00B2DA9A /* ZBBannersModel.m in Sources */,
 				C8FC64261E650479003CD241 /* ZBColumnModel.m in Sources */,
+				C8DAF48D1EACD3E900EAFEE6 /* ZBFatherCommentCell.m in Sources */,
 				C810CBC01E4AF32C004C8D11 /* ZBDataManagerTool.m in Sources */,
 				C8A59E221E50433800B2DA9A /* ZBResponseModel.m in Sources */,
 				C810CBDF1E4C4D7E004C8D11 /* NSDate+Extention.m in Sources */,
@@ -754,6 +816,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ZBQDaily/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zibin.ZBQDaily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -767,6 +830,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ZBQDaily/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zibin.ZBQDaily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
